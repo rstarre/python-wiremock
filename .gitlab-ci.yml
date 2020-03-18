@@ -1,0 +1,23 @@
+image: "python:3.8"
+
+stages:
+  - static analysis
+  - test
+
+before_script:
+  - pip install -r requirements.pip
+
+flake8:
+  stage: static analysis
+  script:
+    - flake8 --max-line-length=120 \
+      --exclude .git,__pycache__,docs/source/conf.py,old,build,dist,venv/* \
+
+test:
+  stage: test
+  script:
+    - nose2 -v
+  artifacts:
+    when: always
+    reports:
+      junit: nose2-junit.xml

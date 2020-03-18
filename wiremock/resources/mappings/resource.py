@@ -21,13 +21,13 @@ class Mappings(BaseResource):
         cls.validate_is_entity(mapping, Mapping)
         response = cls.REST_CLIENT.post(cls.get_base_uri(cls.endpoint()), json=mapping.get_json_data(), headers=make_headers(), params=parameters)
         response = cls.REST_CLIENT.handle_response(response)
-        return MappingResponse.from_dict(response.json())
+        return response.json()
 
     @classmethod
     def retrieve_all_mappings(cls, parameters={}):
         response = cls.REST_CLIENT.get(cls.get_base_uri(cls.endpoint()), headers=make_headers(), params=parameters)
         response = cls.REST_CLIENT.handle_response(response)
-        return AllMappings.from_dict(response.json())
+        return response.json()
 
     @classmethod
     def retrieve_mapping(cls, mapping_id, parameters={}):
@@ -35,7 +35,7 @@ class Mappings(BaseResource):
         ids = {"id": mapping_id}
         response = cls.REST_CLIENT.get(cls.get_base_uri(cls.endpoint_single(), **ids), headers=make_headers(), params=parameters)
         response = cls.REST_CLIENT.handle_response(response)
-        return Mapping.from_dict(response.json())
+        return response.json()
 
     @classmethod
     def update_mapping(cls, mapping, parameters={}):
