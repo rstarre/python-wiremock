@@ -16,8 +16,8 @@ flake8:
 test:
   stage: test
   script:
-    - nose2 -v
+    - pytest
   artifacts:
     when: always
     reports:
-      junit: nose2-junit.xml
+      junit: test_rep.xml
