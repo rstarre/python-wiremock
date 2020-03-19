@@ -15,9 +15,9 @@ class MappingsResourceTests(BaseClientTestCase):
         m = Mapping(priority=1, request=MappingRequest(url="test", method="GET"), response=MappingResponse(status=200, body="test"))
 
         r = Mappings.create_mapping(m)
-        self.assertIsInstance(r, MappingResponse)
-        self.assertEqual(200, r.status)
-        self.assertEqual("test", r.body)
+
+        self.assertEqual(200, r["status"])
+        self.assertEqual("test", r["body"])
 
     @attr("unit", "mappings", "resource")
     @responses.activate
@@ -27,9 +27,8 @@ class MappingsResourceTests(BaseClientTestCase):
         responses.add(responses.GET, "http://localhost/__admin/mappings", json=resp, status=200)
 
         r = Mappings.retrieve_all_mappings()
-        self.assertIsInstance(r, AllMappings)
-        self.assertIsInstance(r.meta, MappingMeta)
-        self.assertEqual(1, r.meta.total)
+
+        self.assertEqual(1, r["meta"]["total"])
 
     @attr("unit", "mappings", "resource")
     @responses.activate
@@ -39,9 +38,9 @@ class MappingsResourceTests(BaseClientTestCase):
         responses.add(responses.GET, "http://localhost/__admin/mappings/1234-5678", json=resp, status=200)
 
         r = Mappings.retrieve_mapping(e)
-        self.assertIsInstance(r, Mapping)
-        self.assertEqual("1234-5678", r.id)
-        self.assertEqual(1, r.priority)
+
+        self.assertEqual("1234-5678", r["id"])
+        self.assertEqual(1, r["priority"])
 
     @attr("unit", "mappings", "resource")
     @responses.activate
