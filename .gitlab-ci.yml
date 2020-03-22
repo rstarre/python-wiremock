@@ -23,7 +23,7 @@ test:
     reports:
       junit: test_rep.xml
 
-test deploy:
+test publish:
   stage: test
   script: ./deploy_to_test_pypi.sh
   only:
