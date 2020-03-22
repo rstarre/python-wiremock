@@ -1,0 +1,44 @@
+image: "python:3.8"
+
+stages:
+  - static analysis
+  - test
+  - build
+
+before_script:
+  - pip install -r requirements.pip
+
+flake8:
+  stage: static analysis
+  script:
+    - flake8 --max-line-length=120 \
+      --exclude .git,__pycache__,docs/source/conf.py,old,build,dist,venv/* \
+
+test:
+  stage: test
+  script:
+    - pytest
+  artifacts:
+    when: always
+    reports:
+      junit: test_rep.xml
+
+test publish:
+  stage: test
+  script:
+    - echo $TWINE_USERNAME
+    - rm -Rf build/ dist/ wiremock.egg-info/ || true
+    - python3 setup.py sdist bdist_wheel
+    - python3 -m twine upload --non-interactive --repository-url https://test.pypi.org/legacy/ dist/*
+    - rm -Rf build/ dist/ wiremock.egg-info/ || true
+  only:
+    refs:
+      - dev
+
+build:
+  stage: build
+  script: ./deploy_to_pypi.sh
+  only:
+    refs:
+    - stable
+
