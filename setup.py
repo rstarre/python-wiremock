@@ -22,6 +22,8 @@ develop_requires = [
     'wheel>=0.34.2']
 
 long_desc = """
+Package is forked from https://github.com/platinummonkey/python-wiremock. This package now works with wiremock 2.26.
+
 wiremock is an API Client to the Admin API for WireMock Standalone installation: https://wiremock.org/docs
 
 `Documentation <https://wiremock.readthedocs.org/en/latest/>`_
@@ -30,10 +32,10 @@ wiremock is an API Client to the Admin API for WireMock Standalone installation:
 """
 
 setup(
-    name='wiremock',
+    name='wiremock-updated',
     version=version,
     description='Wiremock Admin API Client',
-    dependency_links=['https://github.com/platinummonkey/python-wiremock/archive/{0}.tar.gz#egg=wiremock-{0}'.format(version)],
+    # dependency_links=['https://github.com/platinummonkey/python-wiremock/archive/{0}.tar.gz#egg=wiremock-{0}'.format(version)],
     long_description=long_desc,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -58,13 +60,10 @@ setup(
         'develop': develop_requires,
         'docs': ['Sphinx>=2.4.3', 'sphinx-rtd-theme>=0.4.3', 'watchdog>=0.10.2'],
     },
-    test_suite='nose.collector',
-    tests_require=develop_requires,
+    # test_suite='nose.collector',
+    # tests_require=develop_requires,
     author='Cody Lee',
-    author_email='cody.lee@datadoghq.com',
-    maintainer='Cody Lee',
-    maintainer_email='cody.lee@datadoghq.com',
-    url='https://github.com/platinummonkey/python-wiremock',
+    url='https://github.com/rstarre/python-wiremock',
     license='Apache Software License 2.0',
     packages=find_packages(),
     include_package_data=True,

@@ -3,6 +3,7 @@ image: "python:3.8"
 stages:
   - static analysis
   - test
+  - build
 
 before_script:
   - pip install -r requirements.pip
@@ -21,3 +22,18 @@ test:
     when: always
     reports:
       junit: test_rep.xml
+
+test deploy:
+  stage: test
+  script: ./deploy_to_test_pypi.sh
+  only:
+    refs:
+      - dev
+
+build:
+  stage: build
+  script: ./deploy_to_pypi.sh
+  only:
+    refs:
+    - stable
+
