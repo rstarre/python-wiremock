@@ -32,7 +32,7 @@ wiremock is an API Client to the Admin API for WireMock Standalone installation:
 """
 
 setup(
-    name='wiremock-updated',
+    name='wiremock2',
     version=version,
     description='Wiremock Admin API Client',
     # dependency_links=['https://github.com/platinummonkey/python-wiremock/archive/{0}.tar.gz#egg=wiremock-{0}'.format(version)],

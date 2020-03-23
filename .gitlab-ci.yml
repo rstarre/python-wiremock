@@ -26,7 +26,6 @@ test:
 test publish:
   stage: test
   script:
-    - echo $TWINE_USERNAME
     - rm -Rf build/ dist/ wiremock.egg-info/ || true
     - python3 setup.py sdist bdist_wheel
     - python3 -m twine upload --non-interactive --repository-url https://test.pypi.org/legacy/ dist/*
@@ -37,7 +36,11 @@ test publish:
 
 build:
   stage: build
-  script: ./deploy_to_pypi.sh
+  script:
+    - rm -Rf build/ dist/ wiremock.egg-info/ || true
+    - python3 setup.py sdist bdist_wheel
+    - python3 -m twine upload --non-interactive dist/*
+    - rm -Rf build/ dist/ wiremock.egg-info/ || true
   only:
     refs:
     - stable
